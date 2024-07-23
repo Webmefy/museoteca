@@ -1,0 +1,6 @@
+O|100020963|86|20240419
+C|100020963|Carmen|Barrios Donoso|638163808|carmenbardon17@gmail.com|Carmen|Barrios Donoso|ES|Madrid|Madrid|28014|Paseo del Prado, 8|8
+P|100020963|01400|Jardín||LIB2LB|1.0000|86.10
+O|100020965|103|20240419
+C|100020965|Olivier|Pelissou|691486438|olivier.pelissou@gmail.com|Olivier|Pelissou|ES|Barcelona|Mollet del Valles|08100|Teixidores, 8-D|4
+P|100020965|01400|Jardín||LIB1SO|1.0000|103
