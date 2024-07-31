@@ -11,4 +11,7 @@ export const config = {
     SHOPIFY_ACCESS_TOKEN: `${process.env.SHOPIFY_ACCESS_TOKEN}`,
     SHOPIFY_SIGNING_SECRET: `${process.env.SHOPIFY_SIGNING_SECRET}`,
     SHOPIFY_URL_BASE: `https://${storeName}.myshopify.com/admin/api/${apiVersion}`,
+    ftp_host: `${process.env.FTP_HOST}`,
+    ftp_user: `${process.env.FTP_USER}`,
+    ftp_password: `${process.env.FTP_PASSWORD}`,
 };

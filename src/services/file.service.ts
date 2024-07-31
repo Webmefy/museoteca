@@ -1,5 +1,6 @@
 import * as fs from 'node:fs';
-import { FileMapper } from '../shared/interfaces/ftp.interface';
+import { logger } from '../middlewares/logger.middleware';
+import { FileMapper } from '../shared/interfaces/file.interface';
 import { OrderFTP } from '../shared/interfaces/order-ftp.interface';
 import { ProductFTP } from '../shared/interfaces/product-ftp.interface';
 import fileMapper from '../utils/file.mapper';
@@ -7,12 +8,12 @@ import fileMapper from '../utils/file.mapper';
 class FileService {
     writeFile(lines: string[], filePath: string): void {
         const content = lines.join('\n') + '\n';
-
+        
         fs.appendFile(filePath, content, 'utf8', (err) => {
             if (err) {
-                console.error('Error writing to file:', err);
+                logger.error('Error writing to file:', err);
             } else {
-                console.log('Line written to file successfully.');
+                logger.info('Line written to file successfully.');
             }
         });
     }

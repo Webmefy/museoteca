@@ -3,7 +3,7 @@ import {
     SizesFTP,
     SupportsFTP,
     TypeOfLineFTP,
-} from '../shared/enums/ftp.enum';
+} from '../shared/enums/museoteca.enum';
 import { ContactFTP, OrderFTP, ProductItemFTP } from '../shared/interfaces/order-ftp.interface';
 import { ProductFTP, ProductOptionFTP } from '../shared/interfaces/product-ftp.interface';
 

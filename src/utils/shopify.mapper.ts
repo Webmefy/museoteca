@@ -1,5 +1,5 @@
 import { Customer, LineItem2, ShippingAddress, ShopifyOrderResponse } from '../../types/shopify';
-import { TypeOfLineFTP } from '../shared/enums/ftp.enum';
+import { TypeOfLineFTP } from '../shared/enums/museoteca.enum';
 import {
     ContactFTP,
     OrderFTP,

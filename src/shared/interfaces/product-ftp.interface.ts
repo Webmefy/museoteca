@@ -1,4 +1,4 @@
-import { FinisherIdentifiersFTP, SizesFTP, SupportsFTP, TypeOfLineFTP } from "../enums/ftp.enum";
+import { FinisherIdentifiersFTP, SizesFTP, SupportsFTP, TypeOfLineFTP } from "../enums/museoteca.enum";
 
 export interface ProductFTP {
     typeOfLine: TypeOfLineFTP.P; // O product option, P product

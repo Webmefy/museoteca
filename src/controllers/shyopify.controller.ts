@@ -5,7 +5,7 @@ import cryptoService from "../services/crypto.service";
 import shopifyService from "../services/shopify.service";
 
 class ShopifyController {
-    handleNewOrder(req: Request, res: Response): void {
+    handleNewOrder(req: Request, res: Response) {
         try {
             const hmac = req.get('X-Shopify-Hmac-Sha256') as string;
             const hmacVerified = cryptoService.verifyHmac(
@@ -14,12 +14,12 @@ class ShopifyController {
                 hmac,
             );
             if (!hmacVerified) {
-                res.status(401).send('Unauthorized');
+                return res.status(401).send('Unauthorized');
             }
 
             shopifyService.processNewOrder(req.body);
         } catch (e) {
-            logger.info('Error in handle new order ', e);
+            logger.error('Error in handle new order ', e);
             res.status(400).send(JSON.stringify(e));
         } finally   {
             res.status(200).send('OK');

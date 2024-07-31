@@ -1,4 +1,4 @@
-import { TypeOfLineFTP } from '../enums/ftp.enum';
+import { TypeOfLineFTP } from '../enums/museoteca.enum';
 
 export interface OrderFTP {
     typeOfLine: TypeOfLineFTP.O;
