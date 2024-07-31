@@ -1,11 +1,20 @@
 {
-    "compilerOptions": {
-        "target": "ESNext",
-        "module": "commonjs",
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "types": ["node"]
-    }
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "node16",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+  },
+  "include": [
+    "./src/**/*",
+  ],
+  "files": [
+    "types/express.d.ts",
+    "types/axios.d.ts",
+    "types/shopify.d.ts",
+  ]
 }
