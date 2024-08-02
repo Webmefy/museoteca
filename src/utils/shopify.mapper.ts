@@ -95,6 +95,10 @@ class ShopifyMapper {
 
         return [orderLine, contactLine, ...productLines];
     }
+
+    parseOrderFtpToGraphQLIds(ordersFTP: OrderFTP[]): string[] {
+        return ordersFTP.map((order) => `gid://shopify/Order/${order.id}`);
+    }
 }
 
 export default new ShopifyMapper();

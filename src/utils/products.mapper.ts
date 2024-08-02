@@ -1,4 +1,4 @@
-import { ProductOption } from "../shared/interfaces/product-ftp.interface";
+import { ProductOptionFTP } from "../shared/interfaces/product-ftp.interface";
 
 class ProductMapper {
     calcTotalMargin(margin: number, width: number): number {
@@ -6,12 +6,12 @@ class ProductMapper {
         return width * totalMargin * 2;
     }
 
-    calcHeightTotalSize(product: ProductOption): number {
+    calcHeightTotalSize(product: ProductOptionFTP): number {
         const marginSize = this.calcTotalMargin(product.imageMargin, product.imageWidth);
         return product.imageHeight + marginSize + product.imageFrame;
     }
 
-    calcWidthTotalSize(product: ProductOption): number {
+    calcWidthTotalSize(product: ProductOptionFTP): number {
         const marginSize = this.calcTotalMargin(product.imageMargin, product.imageWidth);
         return product.imageWidth + marginSize + product.imageFrame;
     }

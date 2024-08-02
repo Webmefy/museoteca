@@ -8,7 +8,7 @@ import fileMapper from '../utils/file.mapper';
 class FileService {
     writeFile(lines: string[], filePath: string): void {
         const content = lines.join('\n') + '\n';
-        
+
         fs.appendFile(filePath, content, 'utf8', (err) => {
             if (err) {
                 logger.error('Error writing to file:', err);
@@ -29,14 +29,20 @@ class FileService {
         path: string,
         type: 'products' | 'orders',
     ): Promise<ProductFTP[] | OrderFTP[]> {
-        const file = this.parsedFile(path);
+        try {
+            const file = this.parsedFile(path);
 
-        const mapperFile: FileMapper = {
-            products: () => fileMapper.parseProductsFileFTP(file),
-            orders: () => fileMapper.parseOrdersFileFTP(file),
-        };
+            const mapperFile: FileMapper = {
+                products: () => fileMapper.parseProductsFileFTP(file),
+                orders: () => fileMapper.parseOrdersFileFTP(file),
+            };
 
-        return mapperFile[type](file);
+            return mapperFile[type](file);
+        } catch (e) {
+            const error = `Failed proccesing file with path ${path} and type ${type} - error: ${e}`;
+            logger.error(error);
+            throw error;
+        }
     }
 }
 

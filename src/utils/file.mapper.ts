@@ -100,14 +100,13 @@ class FileMapper {
 
     parseOrdersFileFTP(orderFile: string[]): OrderFTP[] {
         const orders: OrderFTP[] = [];
-
         orderFile.forEach((line) => {
             const lineParsed = line.split('|');
 
             if (lineParsed[0] === TypeOfLineFTP.O) {
                 const orderId = lineParsed[1];
-                const contactLine = orderFile.find((concatLine) =>
-                    concatLine.startsWith(`${TypeOfLineFTP.C}|${orderId}`),
+                const contactLine = orderFile.find((contactLine) =>
+                    contactLine.startsWith(`${TypeOfLineFTP.C}|${orderId}`),
                 );
 
                 if (!contactLine) {
