@@ -7,7 +7,7 @@ import fileMapper from '../utils/file.mapper';
 
 class FileService {
     writeFile(lines: string[], filePath: string): void {
-        const content = lines.join('\n') + '\n';
+        const content = lines.join('\r\n');
 
         fs.appendFile(filePath, content, 'utf8', (err) => {
             if (err) {
@@ -39,7 +39,7 @@ class FileService {
 
             return mapperFile[type](file);
         } catch (e) {
-            const error = `Failed proccesing file with path ${path} and type ${type} - error: ${e}`;
+            const error = `Failed processing file with path ${path} and type ${type} - error: ${e}`;
             logger.error(error);
             throw error;
         }
