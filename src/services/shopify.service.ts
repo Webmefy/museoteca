@@ -37,12 +37,6 @@ class ShopifyService {
 
             const orderFile = shopifyMapper.parseOrderToLinesFileFTP(order);
             fileService.writeFile(orderFile, pathNewOrders);
-
-            const ftpService = new FtpService(this.credentials);
-            await ftpService.waitConnection();
-            ftpService.uploadFile(pathNewOrders, `orders/${fileName}`).finally(() => {
-                ftpService.disconnect();
-            });
         } catch (e) {
             const error = `Failed processing order ${shopifyOrder.id}`;
             logger.error(error);
@@ -104,17 +98,40 @@ class ShopifyService {
         });
     }
 
+    async processUploadOrders(file?: string) {
+        const fileName = file ? file : `shopify_orders_${fileDate()}.txt`;
+        try {
+            const localPath = `files/${fileName}`;
+
+            logger.info(`Uploading shopify orders from ${fileName} to FTP`);
+
+            const ftpService = new FtpService(this.credentials);
+            await ftpService.waitConnection();
+            ftpService.uploadFile(localPath, `orders/${fileName}`).finally(() => {
+                ftpService.disconnect();
+            });
+        } catch (e) {
+            const error = `Failed uploading orders from ${fileName} to FTP`;
+            logger.error(error);
+            throw new Error(error);
+        }
+    }
+
     private async findFtpOrders(): Promise<OrderFTP[]> {
         try {
             const ftpService = new FtpService(this.credentials);
             await ftpService.waitConnection();
-            const list = await ftpService.list('orders')
+            const list = await ftpService.list('orders');
             const item = list.reduce((oldest, current) => {
-                return new Date(current.rawModifiedAt) < new Date(oldest.rawModifiedAt) ? current : oldest;
-            })
-            await ftpService.downloadFile(`files/${item.name}`, `orders/${item.name}`).finally(() => {
-                ftpService.disconnect();
+                return new Date(current.rawModifiedAt) < new Date(oldest.rawModifiedAt)
+                    ? current
+                    : oldest;
             });
+            await ftpService
+                .downloadFile(`files/${item.name}`, `orders/${item.name}`)
+                .finally(() => {
+                    ftpService.disconnect();
+                });
 
             return (await fileService.processFile(`files/${item.name}`, 'orders')) as OrderFTP[];
         } catch (e) {
