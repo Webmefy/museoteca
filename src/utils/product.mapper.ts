@@ -1,20 +1,8 @@
 import * as path from 'path';
-import * as xlsx from 'xlsx';
 import { Product } from '../shared/interfaces/product-xlsx';
+import { readXlsxFile } from '../tools/readXlsxFiles';
+import { config } from '../config/config';
 
-
-function readXlsxFile(filePath: string): Product[] {
-  const workbook = xlsx.readFile(filePath);
-  const sheetName = workbook.SheetNames[0];
-  const worksheet = workbook.Sheets[sheetName];
-  const rawData = xlsx.utils.sheet_to_json<any>(worksheet);
-  
-  return rawData.map((item: any) => ({
-    imageId: item['Image ID'] || item['ID'] || '',
-    title: item['Title'] || '',
-    author: item['Author'] || ''
-  })) as Product[];
-}
 
 const filePath = path.resolve(__dirname, '../../products.xlsx');
 const products: Product[] = readXlsxFile(filePath);
@@ -32,7 +20,7 @@ const mapToExpectedFormat = (product: Product) => {
     Command: "MERGE",
     Title: product.title,
     Body_HTML: "",
-    Vendor: "tienda-museothyssen",
+    Vendor: config.SHOPIFY_STORE_NAME,
     Type: "Museoteca",
     Tags: "",
     Tags_Command: "REPLACE",
@@ -44,7 +32,7 @@ const mapToExpectedFormat = (product: Product) => {
     Published_Scope: "global",
     Template_Suffix: "",
     Gift_Card: "0",
-    URL: `https://tienda-museothyssen.myshopify.com/products/${product.title.toLowerCase().replace(/ /g, '-')}`,
+    URL: `https://${config.SHOPIFY_STORE_NAME}.myshopify.com/products/${product.title.toLowerCase().replace(/ /g, '-')}`,
     Total_Inventory_Qty: "0",
     Row: "",
     Top_Row: "",
